@@ -1,0 +1,147 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <link rel="stylesheet" href="grid.css" media="screen" title="no title" charset="utf-8">
+    <title></title>
+  </head>
+  <body>
+    <div class="container">
+    </div>
+    
+    <script>
+
+      var oddFlag = 0;
+      document.body.setAttribute("onkeydown","keyPress(event)");
+
+      for (var i = 0; i < 100; i++) {
+
+        var rd = document.createElement("div");
+        rd.setAttribute("class","cell");
+        //rd.setAttribute("onclick","setActive(this)");
+        
+        
+        /*
+        if(odd(i) == oddFlag){
+          rd.setAttribute("class","cell");
+        }
+        else{
+          rd.setAttribute("class","cell active")
+        }
+        */
+        var containers = document.getElementsByClassName("container");
+        containers[0].appendChild(rd);
+
+      };
+
+      var cells = document.getElementsByClassName("cell");
+
+      var row =  Math.floor( (Math.random()*10) );
+      var col =  Math.floor( (Math.random()*10) );
+
+      var position = (10 * row) + col;
+      //Snake
+      var sHead;
+      var dir;
+      var numCells;
+      var velocity = 10;
+
+      
+
+      function createTail(sHead, dir, numCells){
+        //head
+        var snake= [sHead];
+        //direction
+        //numCells
+
+        for (var i = 1; i <= numCells; i++) {
+          snake.push(snake[i-1]+dir);
+          cells[snake[i]].classList.add("active");
+        };
+      };
+      function createSnake(){
+        cells[position].classList.add("active");
+
+        sHead = position;
+        dir = -1;
+        numCells = 2;
+
+        createTail(sHead, dir, numCells);
+      };
+
+      //game starts
+      createSnake();
+      setInterval( function move(){
+        //move snake
+        for (var i = 0; i <= snake.length; i++) {
+          cells[snake[i]].classList.remove("active");
+        };
+      
+      }, 500);
+      /**
+      function keyPress(event){
+        var current = document.getElementsByClassName("cell");
+        var activeNum = 0;
+        for (var i = 0 ; i < current.length; i++ ) {
+          if(current[i].classList.contains("active")){
+              activeNum = i;
+          }
+        };
+        if(event.keyCode == 68 && ((activeNum+1)<100) && ((activeNum+1)%10!=0) ){ 
+          current[activeNum].classList.remove("active");
+          current[activeNum+1].classList.add("active");
+        }
+        else if(event.keyCode == 65 && (activeNum-1>=0) && (activeNum%10!=0)){
+          current[activeNum].classList.remove("active");
+          current[activeNum-1].classList.add("active");
+        }
+        else if(event.keyCode == 83 && (activeNum+10<100)){
+          current[activeNum].classList.remove("active");
+          current[activeNum+10].classList.add("active");
+        }
+        else if(event.keyCode == 87 && (activeNum-10>=0)){
+          current[activeNum].classList.remove("active");
+          current[activeNum-10].classList.add("active");  
+        }
+
+      }
+      **/
+      
+      /**
+      function setActive(cell){
+        var aux = document.getElementsByClassName("cell");
+        for (var i = 0; i < aux.length; i++) {
+          aux[i].classList.remove("active");
+        };
+
+        cell.classList.add("active");
+
+        
+      }
+      **/
+    	/*
+  		function rColor() {
+
+  			var hex = Math.floor(Math.random() * 0xFFFFFF);
+   			var rc = "#" + ("000000" + hex.toString(16)).substr(-6); 
+
+        var num = document.getElementsByClassName("cell");
+        
+        for (var i = 0 ; i < num.length ; i++) {
+          if( odd(i) == oddFlag){
+            num[i].style.backgroundColor = rc;
+          }
+
+    		};
+
+      }
+        var half = setInterval(rColor, 500);
+      */
+        function odd( num ){
+          return num % 2;
+        }
+      
+		// ref :: http://stackoverflow.com/questions/18820733/getting-a-random-background-color-in-javascript
+    </script>
+  </body>
+</html>
